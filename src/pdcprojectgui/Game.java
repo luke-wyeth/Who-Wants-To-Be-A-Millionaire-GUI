@@ -83,11 +83,12 @@ public class Game
     {
         // questions = createQuestions();
         currentLevel = 0; // start on base level & progression
+        qNum = 0;
         levelProgression = 1;
         isPlaying = true;
         prizeNum = 0; // incremement for each correct question, correspond to prize amount
         // setup lifelines
-        ATA.setUsed();
+        ATA = new ATA();
         PAF = new PAF();
         fiftyFifty = new FiftyFifty();
         
@@ -109,6 +110,9 @@ public class Game
         connToDB();
         getScores();
         
+        questions = new ArrayList<ArrayList>();
+        questions = getQuestions(); 
+        
         printScoreBoard();
         
         play();
@@ -127,8 +131,18 @@ public class Game
     */
     public void askQuestion()
     {
-         // select random question from current level
-        qNum = rand.nextInt(questions.get(currentLevel).size());
+        // select random question from current level
+        
+        if (questions.get(currentLevel).size() > 1)
+        {
+           qNum = rand.nextInt(questions.get(currentLevel).size()); 
+        }
+        else
+        {
+            qNum = 0;
+            incrementProg();
+        }
+        
         selectedQ = (Question) questions.get(currentLevel).get(qNum);
         
         window.setQuestionText(selectedQ.getQuestion());
@@ -141,7 +155,7 @@ public class Game
         window.setPrize("For " + prize[prizeNum]);
     }
     
-     public void askSpecificQuestion(int specQNum)
+    public void askSpecificQuestion(int specQNum)
     {
         selectedQ = (Question) questions.get(currentLevel).get(specQNum);
         
@@ -152,7 +166,6 @@ public class Game
             window.qButtons.get(i).setText((i+1) + ") " + selectedQ.getAnswers()[i]);
         }
     }
-    
     
     
     /*
@@ -232,20 +245,22 @@ public class Game
         }
         if (lost)
         {
-            if (currentLevel == 0)
+            switch (currentLevel) 
             {
-                winningMoney = "$0";
-                congrats = "That is incorrect! You lose, and unfortunately you walk away with ";
-            }
-            else if (currentLevel == 1)
-            {
-                winningMoney = prize[5]; // winnings checkpoint
-                congrats = "That is incorrect! You lose, but you still get to walk away with ";
-            }
-            else if (currentLevel == 3)
-            {
-                winningMoney = prize[10]; // 2nd winnings checkpoint
-                congrats = "That is incorrect! You lose, but you still get to walk away with ";
+                case 0:
+                    winningMoney = "$0";
+                    congrats = "That is incorrect! You lose, and unfortunately you walk away with ";
+                    break;
+                case 1:
+                    winningMoney = prize[5]; // winnings checkpoint
+                    congrats = "That is incorrect! You lose, but you still get to walk away with ";
+                    break;
+                case 2:
+                    winningMoney = prize[10]; // 2nd winnings checkpoint
+                    congrats = "That is incorrect! You lose, but you still get to walk away with ";
+                    break;
+                default:
+                    break;
             }
         }
         if (won)
@@ -255,14 +270,6 @@ public class Game
         
         congrats += winningMoney;
         window.lblEndMessage.setText(congrats);
-        
-        try
-        {
-            DriverManager.getConnection("jdbc:derby:;shutdown=true");
-        } catch (SQLException ex)
-        {
-            // ignore exception XJ015 which is always thrown on shutdown
-        }
        
         isPlaying = false;
     }
@@ -388,6 +395,14 @@ public class Game
             {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
+            // TODO: FIX
+            try
+            {
+                DriverManager.getConnection("jdbc:derby:;shutdown=true");
+            } catch (SQLException ex)
+            {
+                // ignore exception XJ015 which is always thrown on shutdown
+            }
 
         }
     }
@@ -466,17 +481,19 @@ public class Game
                 String[] answers = {rs.getString("ANS1"),rs.getString("ANS2"),rs.getString("ANS3"),rs.getString("ANS4")};
                 Question q = new Question(rs.getInt("QLEVEL"), rs.getString("QUESTION"),answers,rs.getInt("CORRANS"));
                 
-                if (q.getLevel() == 0)
+                switch (q.getLevel()) 
                 {
-                    level0.add(q);
-                }
-                else if (q.getLevel() == 1)
-                {
-                    level1.add(q);
-                }
-                else if (q.getLevel() == 2)
-                {
-                    level2.add(q);
+                    case 0:
+                        level0.add(q);
+                        break;
+                    case 1:
+                        level1.add(q);
+                        break;
+                    case 2:
+                        level2.add(q);
+                        break;
+                    default:
+                        break;
                 }
             }
                     

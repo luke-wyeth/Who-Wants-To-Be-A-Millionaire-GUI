@@ -577,22 +577,7 @@ public class GUI extends java.awt.Frame
     {
         cards.show(pnlCardHolder, cardName);
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[])
-//    {
-//        java.awt.EventQueue.invokeLater(new Runnable()
-//        {
-//            public void run()
-//            {
-//                new GUI().setVisible(true);
-//            }
-//        });
-//    }
-
-    
+   
     public void setQuestionText(String text)
     {
         lblQuestion.setText(text);
