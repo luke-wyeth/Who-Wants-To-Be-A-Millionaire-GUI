@@ -255,6 +255,14 @@ public class Game
         
         congrats += winningMoney;
         window.lblEndMessage.setText(congrats);
+        
+        try
+        {
+            DriverManager.getConnection("jdbc:derby:;shutdown=true");
+        } catch (SQLException ex)
+        {
+            // ignore exception XJ015 which is always thrown on shutdown
+        }
        
         isPlaying = false;
     }
@@ -381,7 +389,7 @@ public class Game
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            }
+        }
     }
     
     /*
@@ -411,7 +419,18 @@ public class Game
     
     private void connToDB()
     {
-        String url = "jdbc:derby://localhost:1527/HighScores";
+
+        String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+        
+        try
+        {
+            Class.forName(driver).newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex)
+        {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String url = "jdbc:derby:HighScores";
         
         try 
         {
