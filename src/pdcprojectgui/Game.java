@@ -378,7 +378,6 @@ public class Game
                 }
 
                 state.executeUpdate("INSERT INTO APP.SCORES (SCOREID, SCORENAME, SCORE) VALUES ("+scoreID+",'"+s.getName()+"',"+s.getScore()+")");
-//          }
 
             } catch (SQLException ex)
             {

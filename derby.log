@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Fri Apr 26 20:48:21 NZST 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016a-58d4-cbcb-000007c34618 
+Sat Apr 27 12:19:10 NZST 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016a-5c28-fa50-00000eb428d8 
 on database directory /Users/luke/NetBeansProjects/MillionaireGUI/HighScores with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
 Loaded from file:/Users/luke/NetBeansProjects/MillionaireGUI/db-derby-10.14.2.0-lib/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -10,5 +10,5 @@ os.name=Mac OS X
 os.arch=x86_64
 os.version=10.14.3
 derby.system.home=null
-Fri Apr 26 20:48:21 NZST 2019 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+Sat Apr 27 12:19:10 NZST 2019 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 Database Class Loader started - derby.database.classpath=''
