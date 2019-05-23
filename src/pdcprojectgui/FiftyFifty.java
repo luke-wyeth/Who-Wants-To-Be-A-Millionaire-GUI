@@ -63,7 +63,7 @@ public class FiftyFifty extends LifeLine
         JOptionPane.showMessageDialog(null, display);
 
         super.setUsed();
-        return -1; // returning -1 triggers re-scan for answer
+        return 1; // successfully completed
     }
 
  }

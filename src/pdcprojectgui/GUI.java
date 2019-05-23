@@ -130,14 +130,18 @@ public class GUI extends java.awt.Frame
 
         pnlCardHolder.setLayout(new java.awt.CardLayout());
 
+        crdStartScreen.setBackground(new java.awt.Color(51, 0, 102));
         crdStartScreen.setMinimumSize(new java.awt.Dimension(883, 528));
         crdStartScreen.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblWelcome.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        lblWelcome.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 24)); // NOI18N
+        lblWelcome.setForeground(new java.awt.Color(204, 204, 204));
         lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblWelcome.setText("Welcome to Who Wants to be a Millionaire!");
         crdStartScreen.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 880, -1));
 
+        btnViewScoreboard.setBackground(new java.awt.Color(51, 0, 51));
+        btnViewScoreboard.setForeground(new java.awt.Color(204, 204, 204));
         btnViewScoreboard.setText("View High Scores");
         btnViewScoreboard.addActionListener(new java.awt.event.ActionListener()
         {
@@ -148,6 +152,8 @@ public class GUI extends java.awt.Frame
         });
         crdStartScreen.add(btnViewScoreboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 220, -1));
 
+        btnStart1.setBackground(new java.awt.Color(51, 0, 51));
+        btnStart1.setForeground(new java.awt.Color(204, 204, 204));
         btnStart1.setText("Start");
         btnStart1.setMaximumSize(new java.awt.Dimension(133, 32));
         btnStart1.setMinimumSize(new java.awt.Dimension(133, 32));
@@ -160,6 +166,8 @@ public class GUI extends java.awt.Frame
         });
         crdStartScreen.add(btnStart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 220, -1));
 
+        btnStartScrnQuit.setBackground(new java.awt.Color(51, 0, 51));
+        btnStartScrnQuit.setForeground(new java.awt.Color(204, 204, 204));
         btnStartScrnQuit.setText("Quit");
         btnStartScrnQuit.addActionListener(new java.awt.event.ActionListener()
         {
@@ -172,8 +180,13 @@ public class GUI extends java.awt.Frame
 
         pnlCardHolder.add(crdStartScreen, "card2");
 
+        pnlQuestionScreen.setBackground(new java.awt.Color(51, 0, 102));
+
         pnlAnswerButtons.setLayout(new java.awt.GridLayout(2, 2));
 
+        btnAnswer1.setBackground(new java.awt.Color(51, 0, 51));
+        btnAnswer1.setFont(new java.awt.Font("Corbel Light", 1, 18)); // NOI18N
+        btnAnswer1.setForeground(new java.awt.Color(204, 204, 204));
         btnAnswer1.setText("Default Answer 1");
         btnAnswer1.addActionListener(new java.awt.event.ActionListener()
         {
@@ -184,6 +197,9 @@ public class GUI extends java.awt.Frame
         });
         pnlAnswerButtons.add(btnAnswer1);
 
+        btnAnswer2.setBackground(new java.awt.Color(51, 0, 51));
+        btnAnswer2.setFont(new java.awt.Font("Corbel Light", 1, 18)); // NOI18N
+        btnAnswer2.setForeground(new java.awt.Color(204, 204, 204));
         btnAnswer2.setText("Default Answer 2");
         btnAnswer2.addActionListener(new java.awt.event.ActionListener()
         {
@@ -194,6 +210,9 @@ public class GUI extends java.awt.Frame
         });
         pnlAnswerButtons.add(btnAnswer2);
 
+        btnAnswer3.setBackground(new java.awt.Color(51, 0, 51));
+        btnAnswer3.setFont(new java.awt.Font("Corbel Light", 1, 18)); // NOI18N
+        btnAnswer3.setForeground(new java.awt.Color(204, 204, 204));
         btnAnswer3.setText("Default Answer 3");
         btnAnswer3.addActionListener(new java.awt.event.ActionListener()
         {
@@ -204,6 +223,9 @@ public class GUI extends java.awt.Frame
         });
         pnlAnswerButtons.add(btnAnswer3);
 
+        btnAnswer4.setBackground(new java.awt.Color(51, 0, 51));
+        btnAnswer4.setFont(new java.awt.Font("Corbel Light", 1, 18)); // NOI18N
+        btnAnswer4.setForeground(new java.awt.Color(204, 204, 204));
         btnAnswer4.setText("Default Answer 4");
         btnAnswer4.addActionListener(new java.awt.event.ActionListener()
         {
@@ -214,22 +236,31 @@ public class GUI extends java.awt.Frame
         });
         pnlAnswerButtons.add(btnAnswer4);
 
+        pnlQuestionDisplay.setBackground(new java.awt.Color(51, 0, 102));
         pnlQuestionDisplay.setLayout(new java.awt.GridLayout(2, 1));
 
-        lblForPrize.setFont(new java.awt.Font("Franklin Gothic Heavy", 1, 36)); // NOI18N
+        lblForPrize.setBackground(new java.awt.Color(51, 0, 102));
+        lblForPrize.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 36)); // NOI18N
+        lblForPrize.setForeground(new java.awt.Color(204, 204, 204));
         lblForPrize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblForPrize.setText("For $example");
         pnlQuestionDisplay.add(lblForPrize);
 
+        pnlLLButtons.setBackground(new java.awt.Color(51, 0, 102));
         pnlLLButtons.setLayout(new java.awt.GridLayout(1, 0));
 
-        lblQuestion.setFont(new java.awt.Font("Lucida Sans", 1, 14)); // NOI18N
+        lblQuestion.setBackground(new java.awt.Color(51, 0, 102));
+        lblQuestion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        lblQuestion.setForeground(new java.awt.Color(204, 204, 204));
         lblQuestion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQuestion.setText("Default Question ONE?");
         pnlLLButtons.add(lblQuestion);
 
         pnlQuestionDisplay.add(pnlLLButtons);
 
+        btnATA.setBackground(new java.awt.Color(51, 0, 51));
+        btnATA.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnATA.setForeground(new java.awt.Color(204, 204, 204));
         btnATA.setText("Ask The Audience");
         btnATA.addActionListener(new java.awt.event.ActionListener()
         {
@@ -239,6 +270,9 @@ public class GUI extends java.awt.Frame
             }
         });
 
+        btnFF.setBackground(new java.awt.Color(51, 0, 51));
+        btnFF.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnFF.setForeground(new java.awt.Color(204, 204, 204));
         btnFF.setText("50/50");
         btnFF.addActionListener(new java.awt.event.ActionListener()
         {
@@ -248,6 +282,9 @@ public class GUI extends java.awt.Frame
             }
         });
 
+        btnPAF.setBackground(new java.awt.Color(51, 0, 51));
+        btnPAF.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnPAF.setForeground(new java.awt.Color(204, 204, 204));
         btnPAF.setText("Phone a Friend");
         btnPAF.addActionListener(new java.awt.event.ActionListener()
         {
@@ -257,6 +294,9 @@ public class GUI extends java.awt.Frame
             }
         });
 
+        btnWalkAway.setBackground(new java.awt.Color(51, 0, 51));
+        btnWalkAway.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnWalkAway.setForeground(new java.awt.Color(204, 204, 204));
         btnWalkAway.setText("Walk Away");
         btnWalkAway.addActionListener(new java.awt.event.ActionListener()
         {
@@ -304,9 +344,11 @@ public class GUI extends java.awt.Frame
 
         pnlCardHolder.add(pnlQuestionScreen, "card3");
 
+        pnlScoreboard.setBackground(new java.awt.Color(51, 0, 102));
         pnlScoreboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblScore.setFont(new java.awt.Font("Franklin Gothic Heavy", 1, 36)); // NOI18N
+        lblScore.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 36)); // NOI18N
+        lblScore.setForeground(new java.awt.Color(204, 204, 204));
         lblScore.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblScore.setText("Score Board");
         lblScore.setToolTipText("");
@@ -319,6 +361,8 @@ public class GUI extends java.awt.Frame
         jScrollPane1.setMinimumSize(new java.awt.Dimension(20, 0));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(450, 265));
 
+        jTable1.setBackground(new java.awt.Color(51, 0, 51));
+        jTable1.setForeground(new java.awt.Color(204, 204, 204));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
@@ -331,6 +375,7 @@ public class GUI extends java.awt.Frame
         ));
         jTable1.setToolTipText("");
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTable1.setGridColor(new java.awt.Color(153, 153, 255));
         jTable1.setMinimumSize(new java.awt.Dimension(45, 0));
         jTable1.setRowMargin(2);
         jTable1.setShowVerticalLines(false);
@@ -346,8 +391,11 @@ public class GUI extends java.awt.Frame
 
         pnlScoreboard.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 820, 270));
 
+        pnlQuitPlayAgain.setBackground(new java.awt.Color(51, 0, 102));
         pnlQuitPlayAgain.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        btnQuit.setBackground(new java.awt.Color(51, 0, 51));
+        btnQuit.setForeground(new java.awt.Color(204, 204, 204));
         btnQuit.setText("Quit");
         btnQuit.setDefaultCapable(false);
         btnQuit.setFocusable(false);
@@ -362,6 +410,8 @@ public class GUI extends java.awt.Frame
         });
         pnlQuitPlayAgain.add(btnQuit);
 
+        btnPlayAgain.setBackground(new java.awt.Color(51, 0, 51));
+        btnPlayAgain.setForeground(new java.awt.Color(204, 204, 204));
         btnPlayAgain.setText("Back to Main Menu");
         btnPlayAgain.setDefaultCapable(false);
         btnPlayAgain.setFocusable(false);
@@ -380,16 +430,22 @@ public class GUI extends java.awt.Frame
 
         pnlCardHolder.add(pnlScoreboard, "card4");
 
+        pnlSaveScore.setBackground(new java.awt.Color(51, 0, 102));
+        pnlSaveScore.setForeground(new java.awt.Color(204, 204, 204));
         pnlSaveScore.setLayout(new java.awt.GridLayout(2, 1));
 
         lblEndMessage.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblEndMessage.setForeground(new java.awt.Color(204, 204, 204));
         lblEndMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEndMessage.setText("end message here");
         pnlSaveScore.add(lblEndMessage);
 
+        pnlScoreQuestion.setBackground(new java.awt.Color(51, 0, 102));
+        pnlScoreQuestion.setForeground(new java.awt.Color(204, 204, 204));
         pnlScoreQuestion.setLayout(new java.awt.GridBagLayout());
 
         lblSaveScore.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblSaveScore.setForeground(new java.awt.Color(204, 204, 204));
         lblSaveScore.setText("Save your score?");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -398,6 +454,8 @@ public class GUI extends java.awt.Frame
         gridBagConstraints.insets = new java.awt.Insets(15, 15, 15, 15);
         pnlScoreQuestion.add(lblSaveScore, gridBagConstraints);
 
+        btnSaveYes.setBackground(new java.awt.Color(51, 0, 51));
+        btnSaveYes.setForeground(new java.awt.Color(204, 204, 204));
         btnSaveYes.setText("Yes");
         btnSaveYes.addActionListener(new java.awt.event.ActionListener()
         {
@@ -414,6 +472,8 @@ public class GUI extends java.awt.Frame
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         pnlScoreQuestion.add(btnSaveYes, gridBagConstraints);
 
+        btnQuitNoScore.setBackground(new java.awt.Color(51, 0, 51));
+        btnQuitNoScore.setForeground(new java.awt.Color(204, 204, 204));
         btnQuitNoScore.setText("No, just quit");
         btnQuitNoScore.addActionListener(new java.awt.event.ActionListener()
         {
@@ -430,6 +490,8 @@ public class GUI extends java.awt.Frame
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         pnlScoreQuestion.add(btnQuitNoScore, gridBagConstraints);
 
+        btnQuitViewScores.setBackground(new java.awt.Color(51, 0, 51));
+        btnQuitViewScores.setForeground(new java.awt.Color(204, 204, 204));
         btnQuitViewScores.setText("No, view score board");
         btnQuitViewScores.addActionListener(new java.awt.event.ActionListener()
         {
@@ -446,6 +508,8 @@ public class GUI extends java.awt.Frame
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         pnlScoreQuestion.add(btnQuitViewScores, gridBagConstraints);
 
+        btnBacktoMenu.setBackground(new java.awt.Color(51, 0, 51));
+        btnBacktoMenu.setForeground(new java.awt.Color(204, 204, 204));
         btnBacktoMenu.setText("Back to Main Menu");
         btnBacktoMenu.addActionListener(new java.awt.event.ActionListener()
         {
@@ -480,7 +544,6 @@ public class GUI extends java.awt.Frame
 
     private void btnViewScoreboardActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnViewScoreboardActionPerformed
     {//GEN-HEADEREND:event_btnViewScoreboardActionPerformed
-        // TODO add your handling code here:
         cards.show(pnlCardHolder, "card4");
     }//GEN-LAST:event_btnViewScoreboardActionPerformed
 

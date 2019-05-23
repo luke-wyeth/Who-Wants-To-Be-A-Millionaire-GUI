@@ -1,14 +1,14 @@
+Wed May 22 15:28:38 NZST 2019 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Sat Apr 27 12:19:10 NZST 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016a-5c28-fa50-00000eb428d8 
-on database directory /Users/luke/NetBeansProjects/MillionaireGUI/HighScores with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Loaded from file:/Users/luke/NetBeansProjects/MillionaireGUI/db-derby-10.14.2.0-lib/lib/derby.jar
+Wed May 22 15:28:38 NZST 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016a-dd95-6cd0-00000ec7d0e8 
+on database directory C:\Users\Luke\Desktop\...AAAA\HighScores with class loader sun.misc.Launcher$AppClassLoader@6f94fa3e 
+Loaded from file:/C:/Users/Luke/Desktop/...AAAA/db-derby-10.14.2.0-lib/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_181-b13
-user.dir=/Users/luke/NetBeansProjects/MillionaireGUI
-os.name=Mac OS X
-os.arch=x86_64
-os.version=10.14.3
+java.runtime.version=1.8.0_201-b09
+user.dir=C:\Users\Luke\Desktop\...AAAA
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
 derby.system.home=null
-Sat Apr 27 12:19:10 NZST 2019 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 Database Class Loader started - derby.database.classpath=''

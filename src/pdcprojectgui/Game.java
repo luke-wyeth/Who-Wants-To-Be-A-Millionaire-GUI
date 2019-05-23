@@ -1,8 +1,5 @@
 package pdcprojectgui;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,9 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 import java.util.logging.*;
-import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 public class Game
@@ -37,9 +33,8 @@ public class Game
     private GUI window;
     public Question selectedQ;
     private int qNum; // number in list of currently being asked question
-    
-    Connection conn;
-    Statement state;
+    private Connection conn;
+    private Statement state;
     
     public Game()
     {
@@ -47,7 +42,7 @@ public class Game
         state = null;
         
         connToDB(); 
-        questions = getQuestions(); 
+        questions = loadQuestions(); 
         
         currentLevel = 0; // start on base level & progression
         levelProgression = 1;
@@ -69,7 +64,7 @@ public class Game
         won = false;
         
         // load in previous scores to scores list
-        scores = new ArrayList<HighScore>();
+       
         getScores();
         
         window = new GUI();
@@ -81,7 +76,6 @@ public class Game
     
     public void resetGame()
     {
-        // questions = createQuestions();
         currentLevel = 0; // start on base level & progression
         qNum = 0;
         levelProgression = 1;
@@ -101,9 +95,9 @@ public class Game
         dtm.setRowCount(0);
         dtm.setColumnCount(0);
         
-        for (int i = 0; i < window.btnLifelines.size(); i++)
+        for (JButton btnLifeline : window.btnLifelines)
         {
-            window.btnLifelines.get(i).setEnabled(true);
+            btnLifeline.setEnabled(true);
         }
         
         scores = new ArrayList<HighScore>();
@@ -111,13 +105,18 @@ public class Game
         getScores();
         
         questions = new ArrayList<ArrayList>();
-        questions = getQuestions(); 
+        questions = loadQuestions(); 
         
         printScoreBoard();
         
         play();
     }
     
+    /*
+        - start playing game
+        - game will loop asking + validating questions/answers until end of game reached
+            or player loses
+    */
     public void play()
     {
         askQuestion();
@@ -125,7 +124,7 @@ public class Game
     
     /*
         - selects question from within current level
-        - prints question out and calls method to get + process user answer
+        - sets question and answers on GUI
         - this method should be repeated as long as the game is still running, until
           end condition reached
     */
@@ -155,6 +154,10 @@ public class Game
         window.setPrize("For " + prize[prizeNum]);
     }
     
+    /*
+        - asks a specified question to the user
+        - main use: re-ask a question that has been altered by 50/50 class
+    */
     public void askSpecificQuestion(int specQNum)
     {
         selectedQ = (Question) questions.get(currentLevel).get(specQNum);
@@ -167,7 +170,6 @@ public class Game
         }
     }
     
-    
     /*
         - used to check user answer against correct answer
         - if answered correctly. progress through level is incremented and
@@ -178,7 +180,6 @@ public class Game
     {
         if (pAns == selectedQ.getCorrectAns()) // answer is CORRECT
         {
-            System.out.println("Correct!");
             incrementProg();
             questions.get(currentLevel).remove(qNum); // remove used question from list
             askQuestion();
@@ -280,7 +281,7 @@ public class Game
         - if reached top of level 0 or 1, move to next level + reset progress
         - if reach top of level 2, set end status and end game
     */
-   private void incrementProg() // used to move progress OR move up a level
+    private void incrementProg() // used to move progress OR move up a level
     {
         if (levelProgression < 5) // user cannot progress to next level
         {
@@ -289,7 +290,6 @@ public class Game
         }
         else if (levelProgression == 5 && prizeNum < 14)
         {
-            System.out.println("level moved up");
             currentLevel++; // move up a level
             levelProgression = 1; // reset progression of current level
             prizeNum++; // increment prize num player is currently on
@@ -306,21 +306,30 @@ public class Game
         return currentLevel;
     }
     
-    public boolean isPlaying()
+    public void setLevel(int level)
+    {
+        currentLevel = level;
+    }
+    
+    public boolean getPlaying()
     {
         return isPlaying;
     }
     
-    //--------- SCORE MANAGEMENT  ---------
+    public void setPlaying(boolean play)
+    {
+        isPlaying = play;
+    }
+    
+    //--------- SCORE + DATABASE MANAGEMENT  ---------
     
     /*
-        - load scores from file into score list
-        - if no scores to load, do nothing (file will be created when save score)
+        - load scores from DB into score list
     */
     private void getScores()
     {
+        scores = new ArrayList<HighScore>();
         ResultSet rs = null;
-        scores.clear();
         
         try
         {
@@ -339,32 +348,25 @@ public class Game
         
         Collections.sort(scores); // sort low to high
         Collections.reverse(scores); // reverse to high to low
-        
     }
     
     /*
-        - save existing scores + new score to file
-        - if no file exists, new one will be created
-        - will only save top 15 scores, any below will be removed
+        - save existing scores + new score to DB
         - calls method to print score board after saving to file
     */
     public void saveScore()
     {
+        // calculate score
         int score = (prizeNum * 5) - (lifelinesUsed * 3);
         String saveName = JOptionPane.showInputDialog(window, "Enter your name:");
         if (saveName != null)
         {
+            // if name is longer than 50 chars, abbreviate to ensure fits in DB field
+            saveName = saveName.substring(0, Math.min(saveName.length(), 50));
             finalScore = new HighScore(saveName, score);
             scores.add(finalScore); // add users score to list
             Collections.sort(scores); // sort low to high
             Collections.reverse(scores); // reverse to high to low
-
-            // if adding new score will make list > 15, remove lowest score to 
-            // keep score list 15 scores maximum
-            if (scores.size() > 16) 
-            {
-                scores.remove(16);
-            }
 
             try
             {
@@ -385,24 +387,23 @@ public class Game
             }
 
             printScoreBoard(); // update score board
-            
-            try
-            {
-                state.close();
-                conn.close();
-            } catch (SQLException ex)
-            {
-                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            // TODO: FIX
-            try
-            {
-                DriverManager.getConnection("jdbc:derby:;shutdown=true");
-            } catch (SQLException ex)
-            {
-                // ignore exception XJ015 which is always thrown on shutdown
-            }
 
+            closeDBConn();
+        }
+    }
+    
+    /*
+        disconnects from the DB and shuts it down
+    */
+    public void closeDBConn()
+    {
+        try
+        {
+            state.close();
+            DriverManager.getConnection("jdbc:derby:;shutdown=true");
+        } catch (SQLException ex)
+        {
+            // ignore exception XJ015 which is always thrown on shutdown
         }
     }
     
@@ -411,9 +412,9 @@ public class Game
     */
     public void printScoreBoard()
     {   
-        Integer[] nums = new Integer[15];
-        String[] names = new String[15];
-        Integer[] scoreArr = new Integer[15];
+        Integer[] nums = new Integer[scores.size()];
+        String[] names = new String[scores.size()];
+        Integer[] scoreArr = new Integer[scores.size()];
         
         DefaultTableModel dtm = (DefaultTableModel) window.jTable1.getModel();
         dtm.setColumnCount(0);
@@ -431,9 +432,12 @@ public class Game
         dtm.addColumn("Score",scoreArr);
     }
     
+    /*
+        - connects to database
+        - creates statement
+    */
     private void connToDB()
     {
-
         String driver = "org.apache.derby.jdbc.EmbeddedDriver";
         
         try
@@ -463,42 +467,64 @@ public class Game
         }
     }
     
-    private ArrayList getQuestions()
+    /*
+        - loads questions from database
+        - returns 1 arraylist made up of 3 lists (one for each level)
+        - should only ever be called after connToDB() 
+        - if DB connection not already established, will try to connect
+        - if connecting to DB succeeds, will try again to load questions
+        - if fails, will end without loading questions and return empty lists
+    */
+    private ArrayList loadQuestions()
     {
         ArrayList<Question> level0 = new ArrayList();
         ArrayList<Question> level1 = new ArrayList();
         ArrayList<Question> level2 = new ArrayList();
         
         ResultSet rs = null;
-        
-        try
+
+        if (conn != null && state != null)
         {
-            rs = state.executeQuery("SELECT * FROM QUESTIONS");
-            
-            while(rs.next())
+            try
             {
-                String[] answers = {rs.getString("ANS1"),rs.getString("ANS2"),rs.getString("ANS3"),rs.getString("ANS4")};
-                Question q = new Question(rs.getInt("QLEVEL"), rs.getString("QUESTION"),answers,rs.getInt("CORRANS"));
-                
-                switch (q.getLevel()) 
+                rs = state.executeQuery("SELECT * FROM QUESTIONS");
+
+                while(rs.next())
                 {
-                    case 0:
-                        level0.add(q);
-                        break;
-                    case 1:
-                        level1.add(q);
-                        break;
-                    case 2:
-                        level2.add(q);
-                        break;
-                    default:
-                        break;
+                    String[] answers = {rs.getString("ANS1"),rs.getString("ANS2"),rs.getString("ANS3"),rs.getString("ANS4")};
+                    Question q = new Question(rs.getInt("QLEVEL"), rs.getString("QUESTION"),answers,rs.getInt("CORRANS"));
+
+                    switch (q.getLevel()) 
+                    {
+                        case 0:
+                            level0.add(q);
+                            break;
+                        case 1:
+                            level1.add(q);
+                            break;
+                        case 2:
+                            level2.add(q);
+                            break;
+                        default:
+                            break;
+                    }
                 }
+
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                connToDB();
             }
-                    
-        } catch (SQLException ex)
+          }
+        else
         {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            connToDB();
+            // have to check conn succeeded before calling loadQuestions() otherwise 
+            // loadQuestions() can recurse infinitely
+            if (conn != null && state != null)
+            {
+               loadQuestions(); 
+            }
         }
         
         ArrayList lists = new ArrayList<>();

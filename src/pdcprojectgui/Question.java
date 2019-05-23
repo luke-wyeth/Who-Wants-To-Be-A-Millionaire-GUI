@@ -13,7 +13,7 @@ public class Question
         this.level = 0;
         this.question = "";
         this.answers = new String[4];
-        this.correctAns = 0;
+        this.correctAns = 1;
     }
     
     public Question(int level, String question, String[] answers, int correctAns)
